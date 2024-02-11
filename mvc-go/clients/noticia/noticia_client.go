@@ -25,6 +25,6 @@ func InsertNoticia(noticia model.Noticia) model.Noticia {
 		//TODO Manage Errors
 		log.Error("")
 	}
-	log.Debug("Noticia Created: ", noticia.Id)
+	log.Debug("Noticia Created: ", noticia.Fecha)
 	return noticia
 }

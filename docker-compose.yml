@@ -15,7 +15,7 @@ services:
       timeout: 20s
       retries: 10
   front:
-    build: ./Diario
+    build: ./diario
     depends_on:
       mvc_go:
         condition: service_healthy

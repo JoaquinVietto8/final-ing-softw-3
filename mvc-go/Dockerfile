@@ -1,11 +1,11 @@
-FROM golang:1.22.0
+FROM golang:1.20
 
-ADD . /mvc-g
-WORKDIR /mvc-g
+ADD . /backend
+WORKDIR /backend
 
-RUN go mod init mvc-g
+RUN go mod init mvc-go
 RUN go mod tidy
-RUN go build -o mvc-g .
-RUN chmod +x /mvc-g
+RUN go build -o mvc-go .
+RUN chmod +x /backend
 
-ENTRYPOINT ["mvc-go"]
+ENTRYPOINT ["/backend/mvc-go"]

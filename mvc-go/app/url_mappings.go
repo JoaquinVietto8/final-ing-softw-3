@@ -8,7 +8,7 @@ import (
 
 func mapUrls() {
 	// Noticia Mapping
-	router.GET("/noticias", noticiaController.GetNoticias)
+	router.GET("/inicio", noticiaController.GetNoticias)
 	router.POST("/nueva-noticia", noticiaController.InsertNoticia)
 
 	log.Info("Finishing mappings configurations")

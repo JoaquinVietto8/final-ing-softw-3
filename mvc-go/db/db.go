@@ -16,7 +16,7 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "mvc"
+	DBName := "diario"
 	DBUser := "root"
 	DBPass := "root"
 	//DBPass := os.Getenv("MVC_DB_PASS")

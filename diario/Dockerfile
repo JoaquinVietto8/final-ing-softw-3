@@ -2,8 +2,8 @@ FROM node:16
 
 EXPOSE 3000
 
-ADD . /Diario
-WORKDIR /Diario
+ADD . /diario
+WORKDIR /diario
 
 COPY package.json ./
 COPY package-lock.json ./
