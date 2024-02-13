@@ -18,15 +18,15 @@ jobs:
         docker-compose build
 
     - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-           sleep 10
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Tag and push Docker images
       run: |
           docker tag final-ing-softw-3-back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3-front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker tag final-ing-softw-3-database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
-  
+
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
