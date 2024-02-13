@@ -22,10 +22,10 @@ jobs:
 
     - name: Tag and push Docker images
       run: |
-          docker tag final-ing-softw-3-back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-back:latest
+          docker tag final-ing-softw-3-back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3-front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker tag final-ing-softw-3-database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
   
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-back:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
