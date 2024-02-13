@@ -40,11 +40,18 @@ func TestGetNoticias(t *testing.T) {
 		{Id_noticia: 1, Contenido: "Contenido de la noticia 1", Imagen: "imagen1.jpg", Fecha: "2024-02-11"},
 		{Id_noticia: 2, Contenido: "Contenido de la noticia 2", Imagen: "imagen2.jpg", Fecha: "2024-02-12"},
 	}
-	assert.Equal(t, expectedNoticiasDto, noticiasDto, "Las noticias devueltas no coinciden con las esperadas")
+	assert.Equal(t, expectedNoticiasDto, noticiasDto, "Las noticias devueltas no coinciden")
+
+	// Se simula un error
+	expectedNoticiasDto := dto.NoticiasDto{
+		{Id_noticia: 1, Contenido: "Contenido de la noticia 1", Imagen: "imagen1.jpg", Fecha: "2024-02-11"},
+		{Id_noticia: 5, Contenido: "Contenido de la noticia 5", Imagen: "imagen5.jpg", Fecha: "2024-02-25"},
+	}
+	assert.Equal(t, expectedNoticiasDto, noticiasDto, "Las noticias devueltas no coinciden")
 }
 
 func (m *MockClient) InsertNoticia(noticia model.Noticia) e.ApiError {
-	fmt.Printf("Noticia insertada en el cliente mock: %+v\n", noticia)
+	fmt.Printf("Noticia insertada: %+v\n", noticia)
 	return nil
 }
 
