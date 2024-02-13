@@ -1,7 +1,6 @@
 name: Build and Publish
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,39 +11,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --configuration Release
-
-    - name: Publish
-      run: dotnet publish --configuration Release --output ./publish
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: app
-        path: ./publish
-  
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: app
-    - name: Output contents
-      run: ls
-    - name: Deploy to Server
-      run: |
-        echo "Deploy"
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
