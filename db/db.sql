@@ -35,6 +35,9 @@ CREATE TABLE `noticia` (
 -- Dumping data for table `noticia`
 --
 
+INSERT INTO `diario`.`noticia` (`id`, `contenido`, `fecha`, `imagen`) VALUES ('1', 'La economía de Milei en un punto de inflexión: el mercado celebra el ajuste pero teme a la confrontación política', '2024-02-13', '1.images.arcpublishing.com/infobae/4QCKRK4JMFENZBFBFJSOOZ5LBU.jpg');
+
+
 LOCK TABLES `noticia` WRITE;
 /*!40000 ALTER TABLE `noticia` DISABLE KEYS */;
 /*!40000 ALTER TABLE `noticia` ENABLE KEYS */;
