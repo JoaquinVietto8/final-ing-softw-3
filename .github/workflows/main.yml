@@ -26,7 +26,20 @@ jobs:
           docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker tag final-ing-softw-3_database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
-
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
+
+    - name: Configurar auth Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v0.4.0
+      with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: diario-414100
+    
+    - name: Deploy Frontend
+      run: |
+          gcloud run deploy frontend \
+            --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
+            --platform=managed \
+            --region=southamerica-east1 \
+            --allow-unauthenticated
