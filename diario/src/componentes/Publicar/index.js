@@ -28,7 +28,7 @@ export function Publicar(){
             document.getElementById("imagen").style.border = "1px solid red";
             document.getElementById("incorrecto").style.visibility = "visible"
         }else{
-            window.location.replace("/inicio")  
+            window.location.replace("https://gc-final-ing-softw-3-frontend-a2l4gusvua-uc.a.run.app/inicio")  
         }})
 
     }; 
