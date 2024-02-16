@@ -27,3 +27,9 @@ jobs:
             --platform=managed \
             --region=southamerica-east1 \
             --allow-unauthenticated
+
+  build-and-publish_failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+       - run: echo "No se pudo realizar deploy por fallo en Build and Publish"
