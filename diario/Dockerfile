@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:20
 
 EXPOSE 3000
 
@@ -10,6 +10,5 @@ COPY package-lock.json ./
 COPY ./ ./
 RUN npm i
 
-EXPOSE 3000
 
 CMD ["npm", "run", "start"]

@@ -8,8 +8,8 @@ export const Paginas = () => {
     return (
         <Routes>
             <Route path='/' exact element={<Home />} />
-            <Route path='https://gc-final-ing-softw-3-frontend-a2l4gusvua-uc.a.run.app/inicio' exact element={<Noticias />} />
-            <Route path='https://gc-final-ing-softw-3-frontend-a2l4gusvua-uc.a.run.app/publicar' exact element={<Publicar />} />
+            <Route path='/inicio' exact element={<Noticias />} />
+            <Route path='/publicar' exact element={<Publicar />} />
         </Routes>
     )
 }

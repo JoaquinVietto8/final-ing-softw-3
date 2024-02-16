@@ -20,7 +20,7 @@ export const Noticias = () => {
             <h1 className="titulo">
                     Diario Cordoba
                 </h1>
-                <a className="publicar" href="https://gc-final-ing-softw-3-frontend-a2l4gusvua-uc.a.run.app/publicar">
+                <a className="publicar" href="/publicar">
                     Publicar
                 </a>
             </header>

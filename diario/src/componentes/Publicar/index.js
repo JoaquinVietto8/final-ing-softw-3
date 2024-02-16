@@ -28,7 +28,7 @@ export function Publicar(){
             document.getElementById("imagen").style.border = "1px solid red";
             document.getElementById("incorrecto").style.visibility = "visible"
         }else{
-            window.location.replace("https://gc-final-ing-softw-3-frontend-a2l4gusvua-uc.a.run.app/inicio")  
+            window.location.replace("/inicio")  
         }})
 
     }; 
@@ -51,10 +51,10 @@ export function Publicar(){
                 <h1 class="title-login">Publicar Noticia</h1>
                 <form onSubmit={handleSubmit} class="form-login">
                     <div class="div-input">
-                        <input id="contenido" type="text" placeholder="Contenido" class="input-datos" maxlength="350" onChange={onChangeContenido} onClick={() => color("contenido")} value ={contenido}/>
+                        <input id="contenido" type="text" autocomplete="off" placeholder="Contenido" class="input-datos" maxlength="350" onChange={onChangeContenido} onClick={() => color("contenido")} value ={contenido}/>
                     </div>
                     <div class="div-input">
-                        <input id="imagen" type="text" placeholder="URL Imagen" class="input-datos" maxlength="350" onChange={onChangeImagen} onClick={() => color("imagen")} value ={imagen}/>
+                        <input id="imagen" type="text" autocomplete="off" placeholder="URL Imagen" class="input-datos" maxlength="350" onChange={onChangeImagen} onClick={() => color("imagen")} value ={imagen}/>
                     </div>
                     <div class="div-confirmar">
                         <button class="confirmar" type="submit">Publicar</button>
