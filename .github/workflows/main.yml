@@ -1,4 +1,4 @@
-name: Build and Publish
+name: Build, Publish and Deploy
 
 on:
   push:
@@ -31,6 +31,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
           
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
