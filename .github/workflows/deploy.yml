@@ -1,0 +1,29 @@
+name: Deploy
+on:
+  workflow_run:
+    workflows: ["Build and Publish"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Configurar auth Google Cloud CLI
+      uses: google-github-actions/auth@v0.4.1
+      with:
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          credentials_json: ${{ secrets.GCLOUD_AUTH }}
+          project_id: diario-414100
+
+    - name: Deploy Frontend
+      run: |
+          gcloud run deploy frontend \
+            --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
+            --platform=managed \
+            --region=southamerica-east1 \
+            --allow-unauthenticated
