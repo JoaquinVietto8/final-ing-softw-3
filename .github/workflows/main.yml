@@ -14,12 +14,9 @@ jobs:
       
     - name: Build images
       run: docker-compose build
-
-    - name: Tag images
-      run: |
-          docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
-          docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
-          docker tag final-ing-softw-3_database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
+      
+    - name: List Docker images
+      run: docker images
 
   publish:
     needs: build
@@ -32,8 +29,13 @@ jobs:
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         
-    - name: Push Docker images
+    - name: Tag and Push Docker images
       run: |
+          docker images
+          docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+          docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+          docker tag final-ing-softw-3_database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
+          docker images
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
