@@ -10,20 +10,26 @@ export const Noticias = () => {
             .then((response) => response.json())
         setNoticias(response)
         console.log(response);
+        if (response == null) {
+            vacio = true
+        } else {
+            vacio = false
+        }
     };
     useEffect(() => {
         fetchApi();
     }, [])
-    return (
-        <>
-            <header className="header-noticias">
-            <h1 className="titulo">
-                    Diario Cordoba
-                </h1>
-                <a className="publicar" href="/publicar">
-                    Publicar
-                </a>
-            </header>
+    if (vacio === false) {
+        return (
+            <>
+                <header className="header-noticias">
+                    <h1 className="titulo">
+                        Diario Cordoba
+                    </h1>
+                    <a className="publicar" href="/publicar">
+                        Publicar
+                    </a>
+                </header>
                 <main>
                     <div class="contenedor-noticias">
                         {
@@ -38,6 +44,26 @@ export const Noticias = () => {
                         }
                     </div>
                 </main>
-        </>
-    )
+            </>
+        )
+    } else {
+        return (
+            <>
+                <header className="header-noticias">
+                    <h1 className="titulo">
+                        Diario Cordoba
+                    </h1>
+                    <a className="publicar" href="/publicar">
+                        Publicar
+                    </a>
+                </header>
+                <main>
+                    <div class="contenedor-noticias">
+                    <h2>No hay noticias para mostrar.</h2>
+                    </div>
+                </main>
+            </>
+        )
+
+    }
 }
