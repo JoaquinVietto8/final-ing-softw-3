@@ -1,7 +1,8 @@
 name: Deploy
 on:
   workflow_run:
-    workflows: [build-and-publish]
+    workflows:
+      - build-and-publish
     types:
       - completed
 
