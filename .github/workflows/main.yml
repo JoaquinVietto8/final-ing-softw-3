@@ -37,7 +37,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
           
   deploy:
-    needs: publish
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
