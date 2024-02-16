@@ -1,4 +1,4 @@
-name: Build, Publish and Deploy
+name: Build, Test, Publish and Deploy
 
 on:
   push:
@@ -17,6 +17,14 @@ jobs:
       run: |
         docker-compose build
 
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Login to Docker Hub
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -31,7 +39,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
           
   deploy:
-    needs: build
+    needs: publish
     runs-on: ubuntu-latest
 
     steps:
