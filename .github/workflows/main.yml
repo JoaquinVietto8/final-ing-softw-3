@@ -16,20 +16,20 @@ jobs:
     - name: Build images
       run: docker-compose build
 
-#  publish:
-#    needs: build
-#    runs-on: ubuntu-latest
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
 
-#    steps:
-#    - name: Checkout code
-#      uses: actions/checkout@v2
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Tag and push Docker images
       run: |
-          docker tag final-ing-softw_3-back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+          docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker tag final-ing-softw-3_database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
