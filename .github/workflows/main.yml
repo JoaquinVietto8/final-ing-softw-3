@@ -33,7 +33,7 @@ jobs:
     - name: Configurar auth Google Cloud CLI
       uses: google-github-actions/auth@v0.4.1
       with:
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          credentials_json: ${{ secrets.GCLOUD_AUTH }}
           project_id: diario-414100
     
     - name: Deploy Frontend
