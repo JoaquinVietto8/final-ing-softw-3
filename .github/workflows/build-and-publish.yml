@@ -22,8 +22,9 @@ jobs:
       run: |
           docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
 #          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
-#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+
 
     - name: Configurar auth Google Cloud CLI
       uses: google-github-actions/auth@v0.4.1
