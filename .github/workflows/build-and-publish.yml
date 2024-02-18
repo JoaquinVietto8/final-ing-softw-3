@@ -22,5 +22,17 @@ jobs:
       run: |
           docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+
+    - name: Configurar auth Google Cloud CLI
+      uses: google-github-actions/auth@v0.4.1
+      with:
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          credentials_json: ${{ secrets.GCLOUD_AUTH }}
+          project_id: diario-414100
+
+    - name: Push the image to the Google Container Registry (GCR)
+      run: |-
+          docker tag joaquinpk/final-ing-softw-3-frontend:latest gcr.io/diario-414100/gc-final-ing-softw-3-frontend
+          docker push gcr.io/viernes-2004033/gc-ingsw3-integrador-frontend:latest
