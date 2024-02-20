@@ -26,11 +26,14 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
 
     - name: Configurar auth Google Cloud CLI
-      uses: google-github-actions/auth@v0.4.1
+      uses: google-github-actions/setup-gcloud@v0.5.0
       with:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          credentials_json: ${{ secrets.GCLOUD_AUTH }}
+          export_default_credentials: true
           project_id: diario-414100
+
+    - name: Configure Docker for Container Registry
+      run: gcloud auth configure-docker
 
     - name: Push Docker images to Google Cloud Container Registry
       run: |
@@ -45,14 +48,22 @@ jobs:
             --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
             --platform=managed \
             --region=southamerica-east1 \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --port=3000 \
+            --max-instances=15
 
-#    - name: Deploy Backend
-#      run: |
-#          gcloud run deploy backend \
-#           --image=gcr.io/diario-414100/gc-final-ing-softw-3-backend \
-#            --add-cloudsql-instances diario-414100:us-central1:diario \
-#            --update-env-vars INSTANCE_CONNECTION_NAME=diario-414100:us-central1:diario,DB_PASS=root,DB_USER=root,DB_NAME=diario \
-#            --platform=managed \
-#           --region=southamerica-east1 \
-#            --allow-unauthenticated
+    - name: Deploy Backend
+      run: |
+          gcloud run deploy backend \
+           --image=gcr.io/diario-414100/gc-final-ing-softw-3-backend \
+            --add-cloudsql-instances diario-414100:us-central1:diario \
+            --update-env-vars INSTANCE_CONNECTION_NAME=diario-414100:us-central1:diario,DB_PASS=root,DB_USER=root,DB_NAME=diario \
+            --platform=managed \
+            --region=southamerica-east1 \
+            --port=8080 \
+            --allow-unauthenticated \
+            --max-instances=15
+
+
+
+#        --set-env-vars=DB_HOST=${{ secrets.DB_HOST }},DB_PORT=${{ secrets.DB_PORT }},DB_NAME=${{ secrets.DB_NAME }},DB_USER=${{ secrets.DB_USER }},DB_PASS=${{ secrets.DB_PASS }}
