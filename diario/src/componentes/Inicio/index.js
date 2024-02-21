@@ -6,7 +6,7 @@ export const Noticias = () => {
 
     const [noticias, setNoticias] = useState([])
     const fetchApi = async () => {
-        const response = await fetch('http://localhost:8080/inicio')
+        const response = await fetch('https://backend-a2l4gusvua-uc.a.run.app/inicio')
             .then((response) => response.json())
         setNoticias(response)
         console.log(response);
