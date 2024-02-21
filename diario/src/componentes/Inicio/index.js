@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ObjectInicio } from "./ObjectInicio";
 import './inicio.css';
 
+var vacio = false;
+
 export const Noticias = () => {
 
     const [noticias, setNoticias] = useState([])
