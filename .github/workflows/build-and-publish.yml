@@ -15,15 +15,15 @@ jobs:
     - name: Build images
       run: docker-compose build
         
-    - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+#    - name: Login to Docker Hub
+#      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         
-    - name: Tag and Push Docker images
-      run: |
-          docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
-          docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+#    - name: Tag and Push Docker images
+#      run: |
+#          docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+#          docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
 
     - name: Configurar auth Google Cloud CLI
       uses: google-github-actions/setup-gcloud@v0.5.0
@@ -37,20 +37,21 @@ jobs:
 
     - name: Push Docker images to Google Cloud Container Registry
       run: |
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest gcr.io/diario-414100/gc-final-ing-softw-3-backend         
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest gcr.io/diario-414100/gc-final-ing-softw-3-frontend
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest gcr.io/diario-414100/gc-final-ing-softw-3-backend  
           docker push gcr.io/diario-414100/gc-final-ing-softw-3-backend:latest
-          docker push gcr.io/diario-414100/gc-final-ing-softw-3-frontend:latest
+#          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest gcr.io/diario-414100/gc-final-ing-softw-3-frontend
+          
+#         docker push gcr.io/diario-414100/gc-final-ing-softw-3-frontend:latest
 
-    - name: Deploy Frontend
-      run: |
-          gcloud run deploy frontend \
-            --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
-            --platform=managed \
-            --region=southamerica-east1 \
-            --allow-unauthenticated \
-            --port=3000 \
-            --max-instances=15
+#    - name: Deploy Frontend
+#      run: |
+#          gcloud run deploy frontend \
+#            --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
+#            --platform=managed \
+#            --region=southamerica-east1 \
+#            --allow-unauthenticated \
+#            --port=3000 \
+#            --max-instances=15
 
     - name: Deploy Backend
       run: |
