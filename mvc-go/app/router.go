@@ -13,9 +13,9 @@ var (
 )
 
 func init() {
-	router = gin.Default() //configura router por defecto
+	router = gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"https://frontend-a2l4gusvua-uc.a.run.app"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
