@@ -62,5 +62,5 @@ jobs:
             --region=us-central1 \
             --port=8080 \
             --max-instances=15 \
-            --set-env-vars=DB_HOST=34.31.127.208,DB_PORT=3306,DB_NAME=diario,DB_USER=root,DB_PASS=root \
+            --set-env-vars=DB_HOST=104.154.18.138,DB_PORT=3306,DB_NAME=diario,DB_USER=root,DB_PASS=root \
             --allow-unauthenticated
