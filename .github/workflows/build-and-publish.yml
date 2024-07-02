@@ -30,23 +30,23 @@ jobs:
       with:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
           export_default_credentials: true
-          project_id: diario-414100
+          project_id: diario-428220
 
     - name: Configure Docker for Container Registry
       run: gcloud auth configure-docker
 
     - name: Push Docker images to Google Cloud Container Registry
       run: |
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest gcr.io/diario-414100/gc-final-ing-softw-3-backend
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest gcr.io/diario-414100/gc-final-ing-softw-3-frontend
-          docker push gcr.io/diario-414100/gc-final-ing-softw-3-backend:latest
-          docker push gcr.io/diario-414100/gc-final-ing-softw-3-frontend:latest
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest gcr.io/diario-428220/final-ing-softw-3-backend-gc
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest gcr.io/diario-428220/final-ing-softw-3-frontend-gc
+          docker push gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest
+          docker push gcr.io/diario-428220/final-ing-softw-3-frontend-gc:latest
          
 
     - name: Deploy Frontend
       run: |
           gcloud run deploy frontend \
-            --image=gcr.io/diario-414100/gc-final-ing-softw-3-frontend \
+            --image=gcr.io/diario-428220/final-ing-softw-3-frontend-gc \
             --platform=managed \
             --region=us-central1 \
             --allow-unauthenticated \
@@ -56,8 +56,8 @@ jobs:
     - name: Deploy Backend
       run: |
           gcloud run deploy backend \
-           --image=gcr.io/diario-414100/gc-final-ing-softw-3-backend \
-            --add-cloudsql-instances diario-414100:us-central1:diario \
+           --image=gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest \
+            --add-cloudsql-instances diario-428220:us-central1:diario \
             --platform=managed \
             --region=us-central1 \
             --port=8080 \
