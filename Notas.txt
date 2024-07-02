@@ -1,0 +1,10 @@
+Solucionar error fetch con la nueva url del backend
+Solucionar problema de los CORS
+Arreglar los test unitarios en la carpeta de service de mvc-go
+Realizar los test unitarios
+
+Repositorios:
+
+https://github.com/JoaquinVietto8/final-ing-softw-3/actions/runs/7995010763/job/21834364082
+https://github.com/AgusZanini/finalingsoft3/blob/main/front/src/App.css
+https://github.com/ingsoft3ucc/TPs/tree/master/trabajos

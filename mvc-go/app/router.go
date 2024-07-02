@@ -13,11 +13,11 @@ var (
 )
 
 func init() {
-	router = gin.Default()
+	router = gin.Default() //configura router por defecto
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://frontend-a2l4gusvua-uc.a.run.app"},
+		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE"},
-		AllowHeaders:     []string{"Origin", "Content-Type"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
@@ -29,4 +29,5 @@ func StartRoute() {
 
 	log.Info("Starting server")
 	router.Run()
+
 }
