@@ -20,13 +20,7 @@ func StartDbEngine() {
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
 
-	var dsn string
-	if dbHost == "/cloudsql/diario-428220:us-central1:diario" {
-		dsn = fmt.Sprintf("%s:%s@unix(%s)/%s", dbUser, dbPass, dbHost, dbName)
-	} else {
-		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
-	}
-
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
 	Db, err = sql.Open("mysql", dsn)
 	if err != nil {
 		panic(err)
