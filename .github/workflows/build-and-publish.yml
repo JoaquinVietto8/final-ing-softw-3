@@ -22,8 +22,10 @@ jobs:
       run: |
           docker tag final-ing-softw-3_back:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
           docker tag final-ing-softw-3_front:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
+          docker tag final-ing-softw-3_database:latest ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-database:latest
 
     - name: Configurar auth Google Cloud CLI
       uses: google-github-actions/setup-gcloud@v0.5.0
@@ -31,6 +33,15 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
           export_default_credentials: true
           project_id: diario-428220
+
+    - name: Run Docker db container to extract SQL file
+      run: |
+          docker create --name temp-container joaquinpk/final-ing-softw-3-database:latest
+          docker cp temp-container:/docker-entrypoint-initdb.d/database.sql ./db.sql
+          docker rm temp-container
+        
+    - name: Upload SQL file to Cloud Storage
+      run: gsutil cp ./db.sql gs://bd_temp
 
     - name: Configure Docker for Container Registry
       run: gcloud auth configure-docker
@@ -41,7 +52,10 @@ jobs:
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-frontend:latest gcr.io/diario-428220/final-ing-softw-3-frontend-gc
           docker push gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest
           docker push gcr.io/diario-428220/final-ing-softw-3-frontend-gc:latest
-         
+
+    - name: Import SQL file to Cloud SQL
+      run: |
+          gcloud --quiet sql import sql diario gs://bd_temp/db.sql
 
     - name: Deploy Frontend
       run: |
@@ -57,10 +71,11 @@ jobs:
       run: |
           gcloud run deploy backend \
            --image=gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest \
-            --add-cloudsql-instances diario-428220:us-central1:diario \
-            --platform=managed \
-            --region=us-central1 \
-            --port=8080 \
-            --max-instances=15 \
-            --set-env-vars=DB_HOST=104.154.18.138,DB_PORT=3306,DB_NAME=diario,DB_USER=root,DB_PASS=root \
-            --allow-unauthenticated
+           --port=8080 \
+           --platform=managed \
+           --region=us-central1 \
+           --allow-unauthenticated \
+           --max-instances=15 \
+           --add-cloudsql-instances=diario \
+           --set-env-vars=DB_HOST=104.154.18.138,DB_PORT=3306,DB_NAME=diario,DB_USER=root,DB_PASS=root \
+

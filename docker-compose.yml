@@ -5,23 +5,25 @@ services:
     build: ./diario
     ports:
       - "3000:3000"
-      
   back:
     build: ./mvc-go
     restart: on-failure
+    depends_on:
+      database:
+        condition: service_healthy
     ports:
       - "8080:8080"
-    environment:
-      - DB_HOST=127.0.0.1
-      - DB_PORT=3306
-      - DB_NAME=diario
-      - DB_USER=root
-      - DB_PASS=root
-    depends_on:
-      - cloudsql-proxy
 
-  cloudsql-proxy:
-    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
-    command: /cloud_sql_proxy -instances=diario-428220:us-central1:diario=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
+  database:
+    build: ./db
+    ports:
+      - "3306:3306"
     volumes:
-      - /path/to/credentials.json:/secrets/cloudsql/credentials.json
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: diario
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root","-p root"]
+      timeout: 20s
+      retries: 10

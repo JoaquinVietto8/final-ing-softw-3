@@ -1,7 +1,6 @@
 package app
 
 import (
-	"os"
 	"time"
 
 	cors "github.com/gin-contrib/cors"
@@ -28,16 +27,17 @@ func init() {
 func StartRoute() {
 	mapUrls() //mapeo de las url
 
+	log.Info("Starting server")
+	router.Run()
+
 	/*
-		log.Info("Starting server")
-		router.Run()
+	   port := os.Getenv("PORT")
+
+	   	if port == "" {
+	   		port = "8080"
+	   	}
+
+	   log.Infof("Starting server on port %s", port)
+	   router.Run(":" + port)
 	*/
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	log.Infof("Starting server on port %s", port)
-	router.Run(":" + port)
 }
