@@ -14,9 +14,5 @@ func init() {
 	log.SetLevel(log.DebugLevel)
 	log.Info("Starting logger system")
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "8080"), nil))
 }
