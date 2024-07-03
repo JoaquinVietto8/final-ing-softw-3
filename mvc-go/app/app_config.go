@@ -1,8 +1,6 @@
 package app
 
 import (
-	"fmt"
-	"net/http"
 	"os"
 
 	log "github.com/sirupsen/logrus"
@@ -14,5 +12,4 @@ func init() {
 	log.SetLevel(log.DebugLevel)
 	log.Info("Starting logger system")
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "8080"), nil))
 }
