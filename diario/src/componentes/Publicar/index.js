@@ -21,7 +21,7 @@ export function Publicar(){
     };
 
     const publicar = async()=>{
-        fetch('https://backend-a2l4gusvua-uc.a.run.app/nueva-noticia',requestOptions)
+        fetch('https://backend-y7etararqa-uc.a.run.app/nueva-noticia',requestOptions)
         .then(response=>response.json())
         .then(response => {if (response.status == 400) {
             document.getElementById("contenido").style.border = "1px solid red";

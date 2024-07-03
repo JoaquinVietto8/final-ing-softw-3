@@ -8,7 +8,7 @@ export const Noticias = () => {
 
     const [noticias, setNoticias] = useState([])
     const fetchApi = async () => {
-        const response = await fetch('https://backend-a2l4gusvua-uc.a.run.app/inicio')
+        const response = await fetch('https://backend-y7etararqa-uc.a.run.app/inicio')
             .then((response) => response.json())
         setNoticias(response)
         console.log(response);
