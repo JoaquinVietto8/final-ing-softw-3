@@ -1,7 +1,6 @@
 package app
 
 import (
-	"os"
 	"time"
 
 	cors "github.com/gin-contrib/cors"
