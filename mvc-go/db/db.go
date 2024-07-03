@@ -1,8 +1,10 @@
 package db
 
 import (
+	"fmt"
 	noticiaClient "mvc-go/clients/noticia"
 	"mvc-go/model"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -16,17 +18,17 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "diario"
-	DBUser := "root"
-	DBPass := "root"
-	//DBPass := os.Getenv("MVC_DB_PASS")
-	DBHost := "104.154.18.138"
+	DBName := os.Getenv("DB_NAME")
+	DBUser := os.Getenv("DB_USER")
+	DBPass := os.Getenv("DB_PASS")
+	DBHost := os.Getenv("DB_HOST")
 	// ------------------------
 
-	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8&parseTime=True", DBUser, DBPass, DBHost, DBName)
+	db, err = gorm.Open("mysql", dsn)
 
 	if err != nil {
-		log.Info("Connection Failed to Open")
+		log.Error("Connection Failed to Open: ", err)
 		log.Fatal(err)
 	} else {
 		log.Info("Connection Established")
