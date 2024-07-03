@@ -5,8 +5,23 @@ services:
     build: ./diario
     ports:
       - "3000:3000"
+      
   back:
     build: ./mvc-go
     restart: on-failure
     ports:
       - "8080:8080"
+    environment:
+      - DB_HOST=127.0.0.1
+      - DB_PORT=3306
+      - DB_NAME=diario
+      - DB_USER=root
+      - DB_PASS=root
+    depends_on:
+      - cloudsql-proxy
+
+  cloudsql-proxy:
+    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+    command: /cloud_sql_proxy -instances=diario-428220:us-central1:diario=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
+    volumes:
+      - /path/to/credentials.json:/secrets/cloudsql/credentials.json
