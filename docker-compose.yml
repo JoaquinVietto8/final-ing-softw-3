@@ -5,25 +5,14 @@ services:
     build: ./diario
     ports:
       - "3000:3000"
+  
   back:
     build: ./mvc-go
-    restart: on-failure
-    depends_on:
-      database:
-        condition: service_healthy
     ports:
       - "8080:8080"
-
-  database:
-    build: ./db
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_DATABASE: diario
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root","-p root"]
-      timeout: 20s
-      retries: 10
+      DB_HOST: "104.154.18.138"
+      DB_PASS: "root"
+      DB_USER: "root"
+      DB_NAME: "diario"
+      DB_PORT: "3306"

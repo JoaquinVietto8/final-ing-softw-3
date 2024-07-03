@@ -1,32 +1,45 @@
 package db
 
 import (
-	"database/sql"
-	"fmt"
-	"os"
+	noticiaClient "mvc-go/clients/noticia"
+	"mvc-go/model"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
-	Db  *sql.DB
+	db  *gorm.DB
 	err error
 )
 
-func StartDbEngine() {
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASS")
+func init() {
+	// DB Connections Paramters
+	DBName := "diario"
+	DBUser := "root"
+	DBPass := "root"
+	DBHost := "104.154.18.138"
+	// ------------------------
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
-	Db, err = sql.Open("mysql", dsn)
+	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
+
 	if err != nil {
-		panic(err)
+		log.Info("Connection Failed to Open")
+		log.Fatal(err)
+	} else {
+		log.Info("Connection Established")
 	}
 
-	if err = Db.Ping(); err != nil {
-		panic(err)
-	}
+	// We need to add all CLients that we build
+	noticiaClient.Db = db
+
+}
+
+func StartDbEngine() {
+	// We need to migrate all classes model.
+	//agregar el resto de los objetos del model
+	db.AutoMigrate(&model.Noticia{})
+
+	log.Info("Finishing Migration Database Tables")
 }
