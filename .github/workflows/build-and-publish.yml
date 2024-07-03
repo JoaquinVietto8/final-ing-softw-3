@@ -63,10 +63,6 @@ jobs:
           docker push gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest
           docker push gcr.io/diario-428220/final-ing-softw-3-frontend-gc:latest
 
-    - name: Import SQL file to Cloud SQL
-      run: |
-          gcloud --quiet sql import sql diario gs://bd_temp/db.sql
-
     - name: Deploy Frontend
       run: |
           gcloud run deploy frontend \
