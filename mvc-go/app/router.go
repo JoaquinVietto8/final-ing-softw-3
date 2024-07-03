@@ -31,13 +31,12 @@ func StartRoute() {
 	router.Run()
 
 	/*
-	   port := os.Getenv("PORT")
+		port := os.Getenv("PORT")
+		if port == "" {
+			port = "8080"
+		}
 
-	   	if port == "" {
-	   		port = "8080"
-	   	}
-
-	   log.Infof("Starting server on port %s", port)
-	   router.Run(":" + port)
+		log.Infof("Starting server on port %s", port)
+		router.Run(":" + port)
 	*/
 }

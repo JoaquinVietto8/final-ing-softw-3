@@ -46,6 +46,24 @@ jobs:
     - name: Configure Docker for Container Registry
       run: gcloud auth configure-docker
 
+    - name: Ensure Cloud SQL API is enabled
+      run: gcloud services enable sqladmin.googleapis.com
+
+    - name: Initiate Cloud SQL instance if not initiated
+      run: |
+        INSTANCE_NAME=diario
+        PROJECT_ID=diario-428220
+        REGION=us-central1
+
+        if ! gcloud sql instances describe $INSTANCE_NAME --project=$PROJECT_ID; then
+          echo "Instance $INSTANCE_NAME does not exist. Creating..."
+          gcloud sql instances create $INSTANCE_NAME --project=$PROJECT_ID --region=$REGION --tier=db-f1-micro --database-version=MYSQL_5_7
+          gcloud sql databases create diario --instance=$INSTANCE_NAME --project=$PROJECT_ID
+          gcloud sql users set-password root --host=% --instance=$INSTANCE_NAME --password=root
+        else
+          echo "Instance $INSTANCE_NAME exists. Skipping creation."
+        fi
+
     - name: Push Docker images to Google Cloud Container Registry
       run: |
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/final-ing-softw-3-backend:latest gcr.io/diario-428220/final-ing-softw-3-backend-gc
