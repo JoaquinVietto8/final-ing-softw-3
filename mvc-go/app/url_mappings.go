@@ -1,11 +1,21 @@
 package app
 
 import (
-	noticiaController "mvc-go/controllers/noticia"
+	"final-ing-softw-3/mvc-go/clients/noticia"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
+func MapUrls(router *mux.Router) {
+	// Noticia Mapping
+	router.HandleFunc("/inicio", noticia.GetNoticias).Methods("GET")
+	router.HandleFunc("/nueva-noticia", noticia.InsertNoticia).Methods("POST")
+
+	logrus.Info("Finishing mappings configurations")
+}
+
+/*
 func mapUrls() {
 	// Noticia Mapping
 	router.GET("/inicio", noticiaController.GetNoticias)
@@ -13,3 +23,4 @@ func mapUrls() {
 
 	log.Info("Finishing mappings configurations")
 }
+*/
