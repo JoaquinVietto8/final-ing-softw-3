@@ -55,7 +55,7 @@ jobs:
 
     - name: Deploy Backend
       run: |
-          gcloud run deploy backend \
+          gcloud run deploy backend-2 \
            --image=gcr.io/diario-428220/final-ing-softw-3-backend-gc:latest \
             --add-cloudsql-instances diario-428220:us-central1:diario \
             --platform=managed \
