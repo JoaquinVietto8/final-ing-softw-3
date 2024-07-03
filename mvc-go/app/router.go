@@ -28,11 +28,11 @@ func init() {
 func StartRoute() {
 	mapUrls() //mapeo de las url
 
-	/*
+	
 		log.Info("Starting server")
 		router.Run()
-	*/
-
+	
+/*
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -40,4 +40,5 @@ func StartRoute() {
 
 	log.Infof("Starting server on port %s", port)
 	router.Run(":" + port)
+ */
 }
