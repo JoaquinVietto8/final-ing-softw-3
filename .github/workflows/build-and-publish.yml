@@ -24,7 +24,7 @@ jobs:
           go-version: 1.18
 
     - name: Execute unit tests
-      run: docker exec backend go test -v ./service/test
+      run: docker exec back go test -v ./service/test
 
     - name: Stop containers
       run: docker-compose down
