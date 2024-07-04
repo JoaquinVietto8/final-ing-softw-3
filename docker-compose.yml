@@ -2,11 +2,13 @@ version: '3'
 
 services:
   front:
+    container_name: front
     build: ./diario
     ports:
       - "3000:3000"
   
   back:
+    container_name: back
     build: ./mvc-go
     ports:
       - "8080:8080"

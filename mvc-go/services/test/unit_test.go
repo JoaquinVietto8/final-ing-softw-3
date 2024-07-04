@@ -35,10 +35,7 @@ func TestGetNoticias(t *testing.T) {
 	service := &noticiaService{noticiaCliente: NewMockClient()}
 
 	// Llama a la función que se está probando
-	noticias, err := service.GetNoticias()
-
-	// Verifica que no haya error
-	assert.NoError(t, err, "Ocurrió un error")
+	var noticias = service.GetNoticias()
 
 	// Verifica que se devuelvan las noticias esperadas
 	var noticiasDto dto.NoticiasDto
