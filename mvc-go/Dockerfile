@@ -2,12 +2,12 @@ FROM golang:1.20
 
 EXPOSE 8080
 
-ADD . /backend
-WORKDIR /backend
+ADD . /mvc-go
+WORKDIR /mvc-go
 
 RUN go mod init mvc-go
 RUN go mod tidy
 RUN go build -o mvc-go .
-RUN chmod +x /backend
+RUN chmod +x mvc-go
 
 ENTRYPOINT ["/backend/mvc-go"]
