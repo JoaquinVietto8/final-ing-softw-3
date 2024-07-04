@@ -1,7 +1,6 @@
 package test
 
 import (
-	e "final-ing-softw-3/mvc-go/utils/errors"
 	"fmt"
 	"mvc-go/dto"
 	"mvc-go/model"
