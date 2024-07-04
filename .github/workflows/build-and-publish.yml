@@ -22,6 +22,9 @@ jobs:
       uses: actions/setup-go@v2
       with: 
           go-version: 1.18
+          
+    - name: Check containers
+      run: docker ps
 
     - name: Execute unit tests
       run: docker exec back go test -v ./services/test
