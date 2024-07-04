@@ -21,12 +21,12 @@ type noticiaService struct {
 	noticiaCliente *MockClient
 }
 
-func (s *noticiaService) GetNoticias() ([]model.Noticia, e.ApiError) {
+func (s *noticiaService) GetNoticias() []model.Noticia {
 	// Noticias de ejemplo
 	return []model.Noticia{
 		{Id: 1, Contenido: "Contenido de la noticia 1", Imagen: "imagen1.jpg", Fecha: "2024-02-11"},
 		{Id: 2, Contenido: "Contenido de la noticia 2", Imagen: "imagen2.jpg", Fecha: "2024-02-12"},
-	}, nil
+	}
 }
 
 func TestGetNoticias(t *testing.T) {
@@ -35,7 +35,7 @@ func TestGetNoticias(t *testing.T) {
 	service := &noticiaService{noticiaCliente: NewMockClient()}
 
 	// Llama a la función que se está probando
-	var noticias = service.GetNoticias()
+	var noticias model.Noticias = service.GetNoticias()
 
 	// Verifica que se devuelvan las noticias esperadas
 	var noticiasDto dto.NoticiasDto
