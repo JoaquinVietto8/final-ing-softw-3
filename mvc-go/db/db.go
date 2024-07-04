@@ -23,7 +23,7 @@ func init() {
 	//dbPass := os.Getenv("DB_PASS")
 	// ------------------------
 
-	db, err = gorm.Open("mysql", "root:root@tcp(104.154.18.138:3306)/diario?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", "umqefiasb4eerhdc:agyJvR3b86TriD2SciLD@tcp(bavlh4vaq9znl1j1mh7v-mysql.services.clever-cloud.com:3306)/bavlh4vaq9znl1j1mh7v?charset=utf8&parseTime=True")
 
 	if err != nil {
 		log.Info("Connection Failed to Open")
