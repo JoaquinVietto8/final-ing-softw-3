@@ -60,7 +60,5 @@ jobs:
            --platform=managed \
            --region=us-central1 \
            --allow-unauthenticated \
-           --max-instances=15 \
-           --add-cloudsql-instances=diario \
-           --set-env-vars=DB_HOST=104.154.18.138,DB_PORT=3306,DB_NAME=diario,DB_USER=root,DB_PASS=root \
+           --max-instances=15
 
