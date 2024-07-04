@@ -11,4 +11,5 @@ func init() {
 	//log.SetFormatter(&log.JSONFormatter{})
 	log.SetLevel(log.DebugLevel)
 	log.Info("Starting logger system")
+
 }

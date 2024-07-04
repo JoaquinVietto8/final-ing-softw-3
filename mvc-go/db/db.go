@@ -24,7 +24,7 @@ func init() {
 	dbPass := os.Getenv("DB_PASS")
 	// ------------------------
 
-	db, err = gorm.Open("mysql", dbUser+":"+dbPass+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", dbUser+":"+dbPass+"@tcp("+dbHost+dbPort+")/"+dbName+"?charset=utf8&parseTime=True")
 
 	if err != nil {
 		log.Info("Connection Failed to Open")
