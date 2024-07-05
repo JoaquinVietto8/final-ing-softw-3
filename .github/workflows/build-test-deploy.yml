@@ -1,11 +1,12 @@
-name: Build and Publish
+name: Build, test and deploy
 on:
   push:
     branches:
       - main
 jobs:
 
-  build_publish_deploy:
+  build_and_test:
+
     runs-on: ubuntu-latest
     steps:
     
@@ -78,4 +79,28 @@ jobs:
            --region=us-central1 \
            --allow-unauthenticated \
            --max-instances=15
+
+  integration-tests:
+
+      runs-on: ubuntu-latest
+      steps:
+            
+            - name: Checkout code
+              uses: actions/checkout@v2
+        
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '14'
+        
+            - name: Install dependencies
+              run: | 
+                npx playwright install --force
+                npm install --force
+              working-directory: ./test
+        
+            - name: Run Integration Tests
+              run: |
+                xvfb-run npx codeceptjs run
+              working-directory: ./test
 
