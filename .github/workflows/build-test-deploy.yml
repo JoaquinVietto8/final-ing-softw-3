@@ -1,11 +1,11 @@
-name: deployment pipeline
+name: Build, test and deploy
 on:
   push:
     branches:
       - main
 jobs:
 
-  build:
+  build_test_publish:
 
     runs-on: ubuntu-latest
     steps:
@@ -15,12 +15,6 @@ jobs:
       
     - name: Build images
       run: docker-compose build
-  
-  test:
-
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
 
     - name: Start containers
       run: docker-compose up -d
@@ -38,12 +32,6 @@ jobs:
 
     - name: Stop containers
       run: docker-compose down
-
-  deploy:
-
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
         
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -94,7 +82,7 @@ jobs:
 
   integration-tests:
 
-      needs: deploy
+      needs: build_test_publish
       runs-on: ubuntu-latest
       steps:
             
