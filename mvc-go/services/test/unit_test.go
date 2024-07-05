@@ -51,7 +51,7 @@ func TestGetNoticias(t *testing.T) {
 	}
 
 	expectedNoticiasDto := dto.NoticiasDto{
-		{Id_noticia: 1, Contenido: "Contenido de la noticia 1", Imagen: "imagen1.jpg", Fecha: "2024-02-11"},
+		{Id_noticia: 1, Contenido: "Contenido de la noticia 3", Imagen: "imagen1.jpg", Fecha: "2024-02-11"},
 		{Id_noticia: 2, Contenido: "Contenido de la noticia 2", Imagen: "imagen2.jpg", Fecha: "2024-02-12"},
 	}
 	assert.Equal(t, expectedNoticiasDto, noticiasDto, "Las noticias devueltas no coinciden")
